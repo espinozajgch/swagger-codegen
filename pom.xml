@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.1.1</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>com.demo</groupId>
+	<artifactId>swagger-codegen</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>swagger-codegen</name>
+	<description>Swagger Codegen</description>
+
+	<properties>
+		<java.version>17</java.version>
+		<version.swagger.codegen>3.0.40</version.swagger.codegen>
+		<yaml.file>${project.basedir}/src/main/resources/api.yaml</yaml.file>
+		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
+		<generated-sources-java-path>main/java</generated-sources-java-path>
+		<generator.datelibrary>spring-boot</generator.datelibrary>
+
+		<swagger.annotations.version>2.2.14</swagger.annotations.version>
+		<jackson-nullable.version>0.2.6</jackson-nullable.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>${swagger.annotations.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>${jackson-nullable.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>io.swagger.codegen.v3</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>3.0.46</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${yaml.file}</inputSpec>
+							<language>spring</language>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<generateModelDocumentation>false</generateModelDocumentation>
+							<modelPackage>${project.groupId}.swagger.dto</modelPackage>
+							<apiPackage>${project.groupId}.swagger.api</apiPackage>
+							<configOptions>
+								<useTags>true</useTags>
+								<useSwaggerFeature>true</useSwaggerFeature>
+								<dateLibrary>java17</dateLibrary>
+								<java17>true</java17>
+								<interfaceOnly>true</interfaceOnly>
+								<bigDecimalAsString>true</bigDecimalAsString>
+							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
